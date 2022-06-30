@@ -1,0 +1,30 @@
+I've been struggling with many errors theses days,
+this is a directory to improve the way im learning laravel and how i resolved 
+these errors.
+
+ 1.  Class "Category" not found 
+
+  I forgot to import the class Category in my migration, then the problem were solved.
+
+ 2.   Illuminate\Database\QueryException 
+
+  SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'admin@admin.com' for key 'users_email_unique' 
+
+When i tried to seed all my DB i've got a Duplicate entry for the user admin, because i already seed the DB and i forgot it.
+the solution was to migrate:fresh the db then put the flag --seed to seed all the DB .
+
+The migrate:fresh command will drop all tables from the database and then execute the migrate command:
+
+php artisan migrate:fresh
+ 
+php artisan migrate:fresh --seed
+
+3.   Illuminate\Database\QueryException 
+
+  SQLSTATE[HY000]: General error: 1364 Field 'icon' doesn't have a default value (SQL: insert into `categories` 
+  Here i had to implement the category table, because 'icon' value was missing,so i went to migrations and added the following
+  sentence : $table->string('icon')->nullable();
+
+  When i cleaned all the errors, then i did php artisan migrate:refresh --seed 
+  and the database were seeded.
+
